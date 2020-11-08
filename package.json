@@ -3,6 +3,8 @@
 	"displayName": "tinify-helper",
 	"description": "一款使用tinify api压缩图片的插件",
 	"version": "0.0.1",
+	"publisher": "jingxiu",
+	"icon":"icon.png",
 	"engines": {
 		"vscode": "^1.51.0"
 	},
