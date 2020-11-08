@@ -1,0 +1,88 @@
+{
+	"name": "tinify-helper",
+	"displayName": "tinify-helper",
+	"description": "一款使用tinify api压缩图片的插件",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.51.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:tinify-helper.tinifyImages",
+		"onCommand:tinify-helper.tinifyImage"
+	],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "tinify-helper.tinifyImages",
+				"title": "tinify images"
+			},
+			{
+				"command": "tinify-helper.tinifyImage",
+				"title": "tinify image"
+			}
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "tinify-helper.tinifyImages",
+					"group": "1_modification"
+				},
+				{
+					"when": "resourceLangId == tinyfy-files",
+					"command": "tinify-helper.tinifyImage",
+					"group": "1_modification"
+				}
+			]
+		},
+		"languages": [
+			{
+				"id": "tinyfy-files",
+				"extensions": [
+					".png",
+					".jpg",
+					".jpeg"
+				]
+			}
+		],
+		"configuration": {
+			"title": "tinify key",
+			"properties": {
+				"tinify-helper.key": {
+					"type": "string",
+					"default": "",
+					"description": "tinify key,请到 https://tinypng.com/developers 申请"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint src --ext ts",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile && npm run lint",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.51.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^12.11.7",
+		"eslint": "^7.9.0",
+		"@typescript-eslint/eslint-plugin": "^4.1.1",
+		"@typescript-eslint/parser": "^4.1.1",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.0.2",
+		"vscode-test": "^1.4.0"
+	},
+	"dependencies": {
+		"filesize": "^6.1.0",
+		"tinify": "^1.6.0-beta.2"
+	}
+}
