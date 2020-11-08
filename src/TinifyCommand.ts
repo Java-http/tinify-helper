@@ -26,6 +26,7 @@ export default class {
 
 		tinifyImg(folder).then((re)=>{
 			outputChannel.appendLine(`${re.fileName} - ${filesize(re.fileSize)} -> ${filesize(re.tinifyFileSize)} 减少 ${filesize(re.fileSize - re.tinifyFileSize)}`);
+			outputChannel.appendLine(`压缩完成!`);
 		}).catch((err)=>{
 			outputChannel.appendLine(`${err.fileName} 压缩报错: ${err.err}`);
 		});
@@ -40,12 +41,26 @@ export default class {
 				outputChannel.show();
 				outputChannel.appendLine(`当前key值已使用次数: ${getTinifyCount()}`);
 				outputChannel.appendLine(`正在压缩图片,请稍候......`);
+				/** 图片总数 */
+				const count = files.length;
+				/** 图片计数(含压缩成功和失败次数) */
+				const result = {succ:0,fail:0};
 
         files.map((item) => {
 					tinifyImg(item).then((re)=>{
 						outputChannel.appendLine(`${re.fileName} - ${filesize(re.fileSize)} -> ${filesize(re.tinifyFileSize)} 减少 ${filesize(re.fileSize - re.tinifyFileSize)}`);
+
+						result.succ++;
+						if(result.succ + result.fail >= count){
+							outputChannel.appendLine(`压缩完成! 成功:${result.succ}张 失败:${result.fail}张`);
+						}
 					}).catch((err)=>{
 						outputChannel.appendLine(`${err.fileName} 压缩报错: ${err.err}`);
+
+						result.fail++;
+						if(result.succ + result.fail >= count){
+							outputChannel.appendLine(`压缩完成! 成功:${result.succ}张 失败:${result.fail}张`);
+						}
 					});
 				});
 			});
