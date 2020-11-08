@@ -6,7 +6,7 @@
 
 ## 配置
 
-- **tinify-helper.key**
+**tinify-helper.key**
   - 类型: string
   - 默认: ""
 
